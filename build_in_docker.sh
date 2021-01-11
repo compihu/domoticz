@@ -1,9 +1,13 @@
 #!/bin/bash
 set -e
+set -x
 
-if [ -d domoticz ]; then rm -rf domoticz/*
-elif [ -e domoticz ]; then rm domoticz
-else mkdir domoticz
+. docker/config.sh
+if [ ! -z "$1"]; then TARGET_DIR="$1"; fi
+
+if [ -d "$TARGET_DIR" ]; then rm -rf "$TARGET_DIR"/*
+elif [ -e "$TARGET_DIR" ]; then rm "$TARGET_DIR"
+else mkdir "$TARGET_DIR"
 fi
 docker build -f docker/Dockerfile.build -t domoticz-build .
-docker run -v "$(pwd)":/domoticz -v "$(pwd)"/domoticz:/opt/domoticz --rm --user $(id -u):$(id -g) domoticz-build /domoticz/docker/build.sh
+docker run -v "$(pwd)":/domoticz -v "$(pwd)"/"$TARGET_DIR":/opt/domoticz --rm --user $(id -u):$(id -g) -it domoticz-build /domoticz/docker/build.sh

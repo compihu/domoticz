@@ -6,5 +6,5 @@ cd /domoticz
 cmake -DCMAKE_BUILD_TYPE=Release CMakeLists.txt
 make -j $(nproc)
 make install
-cd /domoticz/domoticz
+cd /opt/domoticz
 tar cav . | xz >/domoticz/domoticz.tar.xz
