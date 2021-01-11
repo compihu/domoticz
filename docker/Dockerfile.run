@@ -1,0 +1,11 @@
+FROM debian:buster-slim
+
+RUN apt-get update &&\
+    apt-get install -y \
+        libssl1.1 \
+        libcurl3-gnutls \
+        libusb-0.1 \
+        libpython3-dev \
+        zlib1g \
+        liblua5.3-0 &&\
+    apt-get clean
